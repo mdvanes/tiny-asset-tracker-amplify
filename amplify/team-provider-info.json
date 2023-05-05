@@ -10,6 +10,12 @@
       "StackName": "amplify-tinyassettrackerampl-dev-102012",
       "StackId": "arn:aws:cloudformation:eu-west-1:552504168047:stack/amplify-tinyassettrackerampl-dev-102012/a92a8b30-eb1d-11ed-87cd-060bed580c05",
       "AmplifyAppId": "d1i84ecux1izs0"
+    },
+    "categories": {
+      "function": {
+        "tinyassettrackerampl97696b55": {},
+        "coords": {}
+      }
     }
   }
 }

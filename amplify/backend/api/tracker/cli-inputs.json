@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/lora": {
+      "name": "/lora",
+      "lambdaFunction": "tinyassettrackerampl97696b55",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/coords": {
+      "name": "/coords",
+      "lambdaFunction": "coords",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
