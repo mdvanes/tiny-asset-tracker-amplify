@@ -26,7 +26,8 @@
         "assetdata": {}
       },
       "api": {
-        "lora": {}
+        "lora": {},
+        "tinyassettrackerampl": {}
       }
     }
   }
