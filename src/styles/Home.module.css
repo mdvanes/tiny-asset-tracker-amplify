@@ -1,3 +1,7 @@
 .container {
     
 }
+
+.card input, .card textarea {
+    color: black;
+}
