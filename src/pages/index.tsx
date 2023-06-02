@@ -6,7 +6,7 @@ import awsExports from "@/aws-exports";
 import { createLora } from "@/graphql/mutations";
 import { listLoras } from "@/graphql/queries";
 import styles from "../styles/Home.module.css";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -49,12 +49,14 @@ async function handleCreatePost(event: any) {
         input: {
           time: form.get("time"),
           lat: form.get("lat"),
-          long: "1",
-          temp: "12",
+          long: form.get("long"),
+          temp: form.get("temp"),
         },
       },
     });
 
+    // console.log(data.createLora);
+    return data.createLora;
     // window.location.href = `/posts/${data.createPost.id}`;
   } catch ({ errors }: any) {
     console.log(errors);
@@ -76,6 +78,10 @@ interface IHomeProps {
 }
 
 const Home: FC<IHomeProps> = ({ loras }) => {
+  const [optimisticLora, setOptimisticLora] = useState<ILora[]>([]);
+
+  const totalLoraItems = [...loras, ...optimisticLora];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -89,29 +95,33 @@ const Home: FC<IHomeProps> = ({ loras }) => {
         <div className={styles.grid}>
           <div className={styles.card}>
             <p className={styles.description}>
-              <code className={styles.code}>{loras.length} </code>
+              <code className={styles.code}>{totalLoraItems.length} </code>
               lora messages
             </p>
 
             <table>
-              <tr>
-                <th>time</th>
-                <th>lat</th>
-                <th>long</th>
-                <th>temp</th>
-              </tr>
-              {loras.map((lora) => (
-                <tr key={lora.id} className={styles.li}>
-                  <td>{lora.time}</td>
-                  <td>{lora.lat}</td>
-                  <td>{lora.long}</td>
-                  <td>{lora.temp}</td>
-                  {/* <a href={`/posts/${lora.id}`}>
+              <thead>
+                <tr>
+                  <th>time</th>
+                  <th>lat</th>
+                  <th>long</th>
+                  <th>temp</th>
+                </tr>
+              </thead>
+              <tbody>
+                {totalLoraItems.map((lora) => (
+                  <tr key={lora.id} className={styles.li}>
+                    <td>{lora.time}</td>
+                    <td>{lora.lat}</td>
+                    <td>{lora.long}</td>
+                    <td>{lora.temp}</td>
+                    {/* <a href={`/posts/${lora.id}`}>
                     <h3></h3>
                     <p>{lora.lat}</p>
                   </a> */}
-                </tr>
-              ))}
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
 
@@ -119,11 +129,18 @@ const Home: FC<IHomeProps> = ({ loras }) => {
             <h3 className={styles.title}>Add mock lora data</h3>
 
             <Authenticator>
-              <form onSubmit={handleCreatePost}>
+              <form
+                onSubmit={async (ev) => {
+                  const result = await handleCreatePost(ev);
+                  if (result?.id) {
+                    setOptimisticLora((opt) => [...opt, result]);
+                  }
+                }}
+              >
                 <div className={styles.fieldset}>
                   <legend>Time</legend>
                   <input
-                    defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
+                    defaultValue={`${new Date().toLocaleTimeString()}`}
                     name="time"
                   />
                 </div>
