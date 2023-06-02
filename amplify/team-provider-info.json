@@ -9,14 +9,24 @@
       "UnauthRoleName": "amplify-tinyassettrackerampl-dev-101326-unauthRole",
       "StackName": "amplify-tinyassettrackerampl-dev-101326",
       "StackId": "arn:aws:cloudformation:eu-west-1:552504168047:stack/amplify-tinyassettrackerampl-dev-101326/5a523380-011d-11ee-9f18-0252b320ecd7",
-      "AmplifyAppId": "d2cjko25z9679b"
+      "AmplifyAppId": "d2cjko25z9679b",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-tinyassettrackerampl-dev-101326-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "function": {
-        "lora": {}
+        "lora": {
+          "deploymentBucketName": "amplify-tinyassettrackerampl-dev-101326-deployment",
+          "s3Key": "amplify-builds/lora-384543343350596d517a-build.zip"
+        }
       },
       "auth": {
         "tinyassettrackerampl": {}
+      },
+      "storage": {
+        "assetdata": {}
+      },
+      "api": {
+        "lora": {}
       }
     }
   }
