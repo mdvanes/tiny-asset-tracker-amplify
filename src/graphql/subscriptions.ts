@@ -2,12 +2,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost(
-    $filter: ModelSubscriptionPostFilterInput
+export const onCreateLora = /* GraphQL */ `
+  subscription OnCreateLora(
+    $filter: ModelSubscriptionLoraFilterInput
     $owner: String
   ) {
-    onCreatePost(filter: $filter, owner: $owner) {
+    onCreateLora(filter: $filter, owner: $owner) {
       id
       time
       lat
@@ -19,12 +19,12 @@ export const onCreatePost = /* GraphQL */ `
     }
   }
 `;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost(
-    $filter: ModelSubscriptionPostFilterInput
+export const onUpdateLora = /* GraphQL */ `
+  subscription OnUpdateLora(
+    $filter: ModelSubscriptionLoraFilterInput
     $owner: String
   ) {
-    onUpdatePost(filter: $filter, owner: $owner) {
+    onUpdateLora(filter: $filter, owner: $owner) {
       id
       time
       lat
@@ -36,12 +36,12 @@ export const onUpdatePost = /* GraphQL */ `
     }
   }
 `;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost(
-    $filter: ModelSubscriptionPostFilterInput
+export const onDeleteLora = /* GraphQL */ `
+  subscription OnDeleteLora(
+    $filter: ModelSubscriptionLoraFilterInput
     $owner: String
   ) {
-    onDeletePost(filter: $filter, owner: $owner) {
+    onDeleteLora(filter: $filter, owner: $owner) {
       id
       time
       lat

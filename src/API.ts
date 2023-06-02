@@ -2,7 +2,7 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreatePostInput = {
+export type CreateLoraInput = {
   id?: string | null,
   time: string,
   lat: string,
@@ -10,14 +10,14 @@ export type CreatePostInput = {
   temp: string,
 };
 
-export type ModelPostConditionInput = {
+export type ModelLoraConditionInput = {
   time?: ModelStringInput | null,
   lat?: ModelStringInput | null,
   long?: ModelStringInput | null,
   temp?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
+  and?: Array< ModelLoraConditionInput | null > | null,
+  or?: Array< ModelLoraConditionInput | null > | null,
+  not?: ModelLoraConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -60,8 +60,8 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Post = {
-  __typename: "Post",
+export type Lora = {
+  __typename: "Lora",
   id: string,
   time: string,
   lat: string,
@@ -72,7 +72,7 @@ export type Post = {
   owner?: string | null,
 };
 
-export type UpdatePostInput = {
+export type UpdateLoraInput = {
   id: string,
   time?: string | null,
   lat?: string | null,
@@ -80,19 +80,19 @@ export type UpdatePostInput = {
   temp?: string | null,
 };
 
-export type DeletePostInput = {
+export type DeleteLoraInput = {
   id: string,
 };
 
-export type ModelPostFilterInput = {
+export type ModelLoraFilterInput = {
   id?: ModelIDInput | null,
   time?: ModelStringInput | null,
   lat?: ModelStringInput | null,
   long?: ModelStringInput | null,
   temp?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
+  and?: Array< ModelLoraFilterInput | null > | null,
+  or?: Array< ModelLoraFilterInput | null > | null,
+  not?: ModelLoraFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -111,20 +111,20 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type ModelPostConnection = {
-  __typename: "ModelPostConnection",
-  items:  Array<Post | null >,
+export type ModelLoraConnection = {
+  __typename: "ModelLoraConnection",
+  items:  Array<Lora | null >,
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionPostFilterInput = {
+export type ModelSubscriptionLoraFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   time?: ModelSubscriptionStringInput | null,
   lat?: ModelSubscriptionStringInput | null,
   long?: ModelSubscriptionStringInput | null,
   temp?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  and?: Array< ModelSubscriptionLoraFilterInput | null > | null,
+  or?: Array< ModelSubscriptionLoraFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -157,14 +157,14 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-  condition?: ModelPostConditionInput | null,
+export type CreateLoraMutationVariables = {
+  input: CreateLoraInput,
+  condition?: ModelLoraConditionInput | null,
 };
 
-export type CreatePostMutation = {
-  createPost?:  {
-    __typename: "Post",
+export type CreateLoraMutation = {
+  createLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -176,14 +176,14 @@ export type CreatePostMutation = {
   } | null,
 };
 
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
+export type UpdateLoraMutationVariables = {
+  input: UpdateLoraInput,
+  condition?: ModelLoraConditionInput | null,
 };
 
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
+export type UpdateLoraMutation = {
+  updateLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -195,14 +195,14 @@ export type UpdatePostMutation = {
   } | null,
 };
 
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
-  condition?: ModelPostConditionInput | null,
+export type DeleteLoraMutationVariables = {
+  input: DeleteLoraInput,
+  condition?: ModelLoraConditionInput | null,
 };
 
-export type DeletePostMutation = {
-  deletePost?:  {
-    __typename: "Post",
+export type DeleteLoraMutation = {
+  deleteLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -214,13 +214,13 @@ export type DeletePostMutation = {
   } | null,
 };
 
-export type GetPostQueryVariables = {
+export type GetLoraQueryVariables = {
   id: string,
 };
 
-export type GetPostQuery = {
-  getPost?:  {
-    __typename: "Post",
+export type GetLoraQuery = {
+  getLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -232,17 +232,17 @@ export type GetPostQuery = {
   } | null,
 };
 
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
+export type ListLorasQueryVariables = {
+  filter?: ModelLoraFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
+export type ListLorasQuery = {
+  listLoras?:  {
+    __typename: "ModelLoraConnection",
     items:  Array< {
-      __typename: "Post",
+      __typename: "Lora",
       id: string,
       time: string,
       lat: string,
@@ -256,14 +256,14 @@ export type ListPostsQuery = {
   } | null,
 };
 
-export type OnCreatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type OnCreateLoraSubscriptionVariables = {
+  filter?: ModelSubscriptionLoraFilterInput | null,
   owner?: string | null,
 };
 
-export type OnCreatePostSubscription = {
-  onCreatePost?:  {
-    __typename: "Post",
+export type OnCreateLoraSubscription = {
+  onCreateLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -275,14 +275,14 @@ export type OnCreatePostSubscription = {
   } | null,
 };
 
-export type OnUpdatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type OnUpdateLoraSubscriptionVariables = {
+  filter?: ModelSubscriptionLoraFilterInput | null,
   owner?: string | null,
 };
 
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
+export type OnUpdateLoraSubscription = {
+  onUpdateLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,
@@ -294,14 +294,14 @@ export type OnUpdatePostSubscription = {
   } | null,
 };
 
-export type OnDeletePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type OnDeleteLoraSubscriptionVariables = {
+  filter?: ModelSubscriptionLoraFilterInput | null,
   owner?: string | null,
 };
 
-export type OnDeletePostSubscription = {
-  onDeletePost?:  {
-    __typename: "Post",
+export type OnDeleteLoraSubscription = {
+  onDeleteLora?:  {
+    __typename: "Lora",
     id: string,
     time: string,
     lat: string,

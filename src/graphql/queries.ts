@@ -2,9 +2,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
+export const getLora = /* GraphQL */ `
+  query GetLora($id: ID!) {
+    getLora(id: $id) {
       id
       time
       lat
@@ -16,13 +16,13 @@ export const getPost = /* GraphQL */ `
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const listLoras = /* GraphQL */ `
+  query ListLoras(
+    $filter: ModelLoraFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listLoras(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         time

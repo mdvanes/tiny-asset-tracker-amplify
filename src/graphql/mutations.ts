@@ -2,12 +2,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
+export const createLora = /* GraphQL */ `
+  mutation CreateLora(
+    $input: CreateLoraInput!
+    $condition: ModelLoraConditionInput
   ) {
-    createPost(input: $input, condition: $condition) {
+    createLora(input: $input, condition: $condition) {
       id
       time
       lat
@@ -19,12 +19,12 @@ export const createPost = /* GraphQL */ `
     }
   }
 `;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
+export const updateLora = /* GraphQL */ `
+  mutation UpdateLora(
+    $input: UpdateLoraInput!
+    $condition: ModelLoraConditionInput
   ) {
-    updatePost(input: $input, condition: $condition) {
+    updateLora(input: $input, condition: $condition) {
       id
       time
       lat
@@ -36,12 +36,12 @@ export const updatePost = /* GraphQL */ `
     }
   }
 `;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
+export const deleteLora = /* GraphQL */ `
+  mutation DeleteLora(
+    $input: DeleteLoraInput!
+    $condition: ModelLoraConditionInput
   ) {
-    deletePost(input: $input, condition: $condition) {
+    deleteLora(input: $input, condition: $condition) {
       id
       time
       lat

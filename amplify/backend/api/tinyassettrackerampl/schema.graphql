@@ -8,7 +8,7 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 #   description: String
 # }
 
-type Post
+type Lora
   @model
   @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
   id: ID!
