@@ -1,38 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tiny Asset Tracker for AWS Amplify
 
-## Getting Started
+## Disclaimer
 
-First, run the development server:
+Note that this sample IoT web application is for testing purposes only and not a secure solution for processing data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Description
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Map to show tracked lora data for KPN IoT workshop
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Uses AWS Amplify DynamoDB data store, so recorded data will be persisted.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Can be deployed to AWS Amplify.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Runs on [Next.JS](https://nextjs.org)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+TODO ![screenshot](screenshot.png)
 
-## Learn More
+Compare to [tiny-asset-tracker for Azure Web App](https://github.com/kpn-iot/tiny-asset-tracker/).
 
-To learn more about Next.js, take a look at the following resources:
+## Running
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. install: `npm i`
+2. build: `npm run build`
+3. TODO start server in production mode: `npm start`
+4. TODO (optional) seed with dummy data: `./postDummyData.sh`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Forward data from KPN Things to this app, running on localhost:
 
-## Deploy on Vercel
+- KPN Things: set up a flow
+- KPN Things: set destination HTTPS endpoint with https://webhook.site
+- webhook.site (Tested in Firefox & Chrome, does NOT work in Safari): enable XHR Redirect
+  - TODO target: http://localhost:3000/api/lora
+  - Content Type: application/json
+  - HTTP Method: POST
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Deploy on AWS Amplify:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- TODO
+
+## Development
+
+- `npm run dev`
+
+## Steps used to set up this app
+
+- npx create-next-app@latest tiny-asset-tracker-amplify --no-app
+- cd tiny-asset-tracker-amplify
+- amplify init
+- amplify add api
+  - REST
+  - /lora
+  - NodeJS
+  - CRUD function for DynamoDB
+  - create a new DynamoDB table
+    - assetdata
+    - lat number
+    - long number
+    - time string
+    - temp number
+- amplify push
+- amplify status (status on cli) / amplify console / amplify console api (opens web console)
+- the Home.module.css is missing in the documentation! Created a dummy one
+- go to localhost:3000 and create an account
+- curl https://???.execute-api.eu-west-1.amazonaws.com/dev/lora
+  - fails with `{ message: "Missing Authentication Token"}`
+  - can't find anywhere how to call the generated REST api with the correct token, e.g. `await SSR.API.get("lora", "/lora");`
+- amplify add api
+  - Graphql
+  - single object
+  - edit schema
+  - amplify push
+- clean up test garbage from database
+  - amplify console
+  - API tab
+  - data sources: LoraTable > View
+  - Tables: Lora-oq...
+  - Expore Items
+  - select all items > Actions > delete
+- add map ui
+  - https://ui.docs.amplify.aws/react/connected-components/geo#quick-start
+  - npm install @aws-amplify/ui-react-geo
+  - Create map resources by following the Amplify Geo documentation.
+  - amplify add geo
+    - visualize geospatial data
+  - amplify push
+  - npm run dev
+  - what does this add over directly using mapbox?
+
+# TODO
+
+- Call with curl
+- Fix coord randomization
+- Delete from current account with CLI
+- Remove unused next api routes
+- Use monochrome map layer
+- Split into smaller components and fix types
+- Set up an https endpoint to set as an IoT Things destinations
+- Use REST instead of graphql
+- Clean up graphql
+- Deploy on company account
+- Hosting on AWS
