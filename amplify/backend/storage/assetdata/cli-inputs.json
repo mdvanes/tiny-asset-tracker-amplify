@@ -1,0 +1,14 @@
+{
+  "resourceName": "assetdata",
+  "tableName": "assetdata",
+  "partitionKey": {
+    "fieldName": "time",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "lat",
+    "fieldType": "number"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/lora": {
+      "name": "/lora",
+      "lambdaFunction": "lora",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    }
+  }
+}
