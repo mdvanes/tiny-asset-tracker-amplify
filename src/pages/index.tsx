@@ -3,7 +3,7 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify, API, Auth, withSSRContext } from "aws-amplify";
 import Head from "next/head";
 import awsExports from "@/aws-exports";
-import { createLora } from '@/graphql/mutations';
+import { createLora } from "@/graphql/mutations";
 import { listLoras } from "@/graphql/queries";
 import styles from "../styles/Home.module.css";
 import { FC } from "react";
@@ -43,16 +43,16 @@ async function handleCreatePost(event: any) {
 
   try {
     const { data }: any = await API.graphql({
-      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      authMode: "AMAZON_COGNITO_USER_POOLS",
       query: createLora,
       variables: {
         input: {
-          time: form.get('time'),
-          lat: form.get('lat'),
-          long: '1',
-          temp: '12'
-        }
-      }
+          time: form.get("time"),
+          lat: form.get("lat"),
+          long: "1",
+          temp: "12",
+        },
+      },
     });
 
     // window.location.href = `/posts/${data.createPost.id}`;
@@ -67,6 +67,8 @@ interface ILora {
   id: string;
   time: string;
   lat: string;
+  long: string;
+  temp: string;
 }
 
 interface IHomeProps {
@@ -77,47 +79,86 @@ const Home: FC<IHomeProps> = ({ loras }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Amplify + Next.js</title>
+        <title>tiny-asset-tracker-amplify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Amplify + Next.js</h1>
-
-        <p className={styles.description}>
-          <code className={styles.code}>{loras.length}</code>
-          lora messages
-        </p>
+        <h1 className={styles.title}>tiny-asset-tracker-amplify</h1>
 
         <div className={styles.grid}>
-          {loras.map((lora) => (
-            <a className={styles.card} href={`/posts/${lora.id}`} key={lora.id}>
-              <h3>{lora.time}</h3>
-              <p>{lora.lat}</p>
-            </a>
-          ))}
+          <div className={styles.card}>
+            <p className={styles.description}>
+              <code className={styles.code}>{loras.length} </code>
+              lora messages
+            </p>
+
+            <table>
+              {loras.map((lora) => (
+                <tr key={lora.id} className={styles.li}>
+                  <td>{lora.time}</td>
+                  <td>{lora.lat}</td>
+                  <td>{lora.long}</td>
+                  <td>{lora.temp}</td>
+                  {/* <a href={`/posts/${lora.id}`}>
+                    <h3></h3>
+                    <p>{lora.lat}</p>
+                  </a> */}
+                </tr>
+              ))}
+            </table>
+          </div>
 
           <div className={styles.card}>
-            <h3 className={styles.title}>New Post</h3>
+            <h3 className={styles.title}>Add mock lora data</h3>
 
             <Authenticator>
               <form onSubmit={handleCreatePost}>
-                <fieldset>
+                <div className={styles.fieldset}>
                   <legend>Time</legend>
                   <input
                     defaultValue={`Today, ${new Date().toLocaleTimeString()}`}
                     name="time"
                   />
-                </fieldset>
+                </div>
 
-                <fieldset>
+                <div className={styles.fieldset}>
                   <legend>Lat</legend>
                   <input
                     // defaultValue="I built an Amplify project with Next.js!"
                     name="lat"
                   />
-                </fieldset>
+                </div>
 
+                <div className={styles.fieldset}>
+                  <legend>Long</legend>
+                  <input name="long" />
+                </div>
+
+                <div className={styles.fieldset}>
+                  <legend>Temperature</legend>
+                  <input name="temp" />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    (
+                      document.querySelector("[name=time]")! as HTMLInputElement
+                    ).value = `${new Date().toLocaleTimeString()}`;
+                    (
+                      document.querySelector("[name=lat]")! as HTMLInputElement
+                    ).value = `${54 + Math.random()}`;
+                    (
+                      document.querySelector("[name=long]")! as HTMLInputElement
+                    ).value = `${8 + Math.random()}`;
+                    (
+                      document.querySelector("[name=temp]")! as HTMLInputElement
+                    ).value = `${Math.floor(Math.random() * 100)}`;
+                  }}
+                >
+                  r
+                </button>
                 <button>Send Lora Status update</button>
                 <button type="button" onClick={() => Auth.signOut()}>
                   Sign out
