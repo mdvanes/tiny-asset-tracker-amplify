@@ -93,6 +93,15 @@ const Home: FC<IHomeProps> = ({ loras }) => {
   const [username, setUsername] = useState<string | undefined>();
 
   const totalLoraItems = [...loras, ...optimisticLora];
+  totalLoraItems.sort(({ time }, { time: otherTime }) => {
+    if (time < otherTime) {
+      return -1;
+    }
+    if (otherTime < time) {
+      return 1;
+    }
+    return 0;
+  });
 
   // TODO update this value after logging in
   useEffect(() => {
