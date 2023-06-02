@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tinyassettrackerampl-dev-101326-authRole",
+      "UnauthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-dev-101326-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-dev-101326-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-tinyassettrackerampl-dev-101326-deployment",
+      "UnauthRoleName": "amplify-tinyassettrackerampl-dev-101326-unauthRole",
+      "StackName": "amplify-tinyassettrackerampl-dev-101326",
+      "StackId": "arn:aws:cloudformation:eu-west-1:552504168047:stack/amplify-tinyassettrackerampl-dev-101326/5a523380-011d-11ee-9f18-0252b320ecd7",
+      "AmplifyAppId": "d2cjko25z9679b"
+    }
+  }
+}
