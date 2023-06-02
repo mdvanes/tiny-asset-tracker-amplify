@@ -94,6 +94,12 @@ const Home: FC<IHomeProps> = ({ loras }) => {
             </p>
 
             <table>
+              <tr>
+                <th>time</th>
+                <th>lat</th>
+                <th>long</th>
+                <th>temp</th>
+              </tr>
               {loras.map((lora) => (
                 <tr key={lora.id} className={styles.li}>
                   <td>{lora.time}</td>
