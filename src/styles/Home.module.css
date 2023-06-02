@@ -23,6 +23,7 @@
   border-radius: 4px;
   padding: 1rem;
   max-width: 500px;
+  margin-bottom: 1rem;
 }
 
 .card h3 {
@@ -46,7 +47,7 @@
   color: black;
 }
 
-.card button {
+.container button {
     background-color: white;
     border-radius: 0.2rem;
     color: black;

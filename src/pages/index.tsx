@@ -6,7 +6,7 @@ import awsExports from "@/aws-exports";
 import { createLora } from "@/graphql/mutations";
 import { listLoras } from "@/graphql/queries";
 import styles from "../styles/Home.module.css";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -79,8 +79,19 @@ interface IHomeProps {
 
 const Home: FC<IHomeProps> = ({ loras }) => {
   const [optimisticLora, setOptimisticLora] = useState<ILora[]>([]);
+  const [username, setUsername] = useState<string | undefined>();
 
   const totalLoraItems = [...loras, ...optimisticLora];
+
+  // TODO update this value after logging in
+  useEffect(() => {
+    const run = async () => {
+      const x = await Auth.currentAuthenticatedUser();
+
+      setUsername(x.username);
+    };
+    run();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -92,43 +103,50 @@ const Home: FC<IHomeProps> = ({ loras }) => {
       <main className={styles.main}>
         <h1 className={styles.title}>tiny-asset-tracker-amplify</h1>
 
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <p className={styles.description}>
-              <code className={styles.code}>{totalLoraItems.length} </code>
-              lora messages
-            </p>
+        {/* {!username && (
+          <p className={styles.description}>
+            <code className={styles.code}>{totalLoraItems.length} </code>
+            lora messages
+          </p>
+        )} */}
 
-            <table>
-              <thead>
-                <tr>
-                  <th>time</th>
-                  <th>lat</th>
-                  <th>long</th>
-                  <th>temp</th>
-                </tr>
-              </thead>
-              <tbody>
-                {totalLoraItems.map((lora) => (
-                  <tr key={lora.id} className={styles.li}>
-                    <td>{lora.time}</td>
-                    <td>{lora.lat}</td>
-                    <td>{lora.long}</td>
-                    <td>{lora.temp}</td>
-                    {/* <a href={`/posts/${lora.id}`}>
+        <Authenticator>
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <p className={styles.description}>
+                <code className={styles.code}>{totalLoraItems.length} </code>
+                lora messages
+              </p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>time</th>
+                    <th>lat</th>
+                    <th>long</th>
+                    <th>temp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {totalLoraItems.map((lora) => (
+                    <tr key={lora.id} className={styles.li}>
+                      <td>{lora.time}</td>
+                      <td>{lora.lat}</td>
+                      <td>{lora.long}</td>
+                      <td>{lora.temp}</td>
+                      {/* <a href={`/posts/${lora.id}`}>
                     <h3></h3>
                     <p>{lora.lat}</p>
                   </a> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-          <div className={styles.card}>
-            <h3 className={styles.title}>Add mock lora data</h3>
+            <div className={styles.card}>
+              <h3 className={styles.title}>Add mock lora data</h3>
 
-            <Authenticator>
               <form
                 onSubmit={async (ev) => {
                   const result = await handleCreatePost(ev);
@@ -183,13 +201,14 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                   r
                 </button>
                 <button>Send Lora Status update</button>
-                <button type="button" onClick={() => Auth.signOut()}>
-                  Sign out
-                </button>
               </form>
-            </Authenticator>
+            </div>
           </div>
-        </div>
+
+          <button type="button" onClick={() => Auth.signOut()}>
+            Sign out
+          </button>
+        </Authenticator>
       </main>
     </div>
   );
