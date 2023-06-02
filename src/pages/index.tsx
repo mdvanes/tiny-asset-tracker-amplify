@@ -135,7 +135,7 @@ const Home: FC<IHomeProps> = ({ loras }) => {
             <div>
               <MapView
                 style={{
-                  width: "calc(70vw - 3rem)",
+                  width: "calc(60vw - 3rem)",
                   height: "calc(100vh - 200px)",
                   marginBottom: "1rem",
                 }}
