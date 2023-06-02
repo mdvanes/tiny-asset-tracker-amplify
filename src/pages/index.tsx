@@ -7,7 +7,14 @@ import { listLoras } from "@/graphql/queries";
 import styles from "../styles/Home.module.css";
 import { FC, useEffect, useState } from "react";
 import { MapView } from "@aws-amplify/ui-react-geo";
-import { Marker } from "react-map-gl";
+import Map, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl,
+} from "react-map-gl";
 import "@aws-amplify/ui-react-geo/styles.css";
 
 Amplify.configure({ ...awsExports, ssr: true });
@@ -137,7 +144,13 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                       }
                     : undefined
                 }
+                // mapStyle="mapbox://styles/mapbox/dark-v9"
+                // mapStyle="mapbox://styles/mapbox/dark-v11"
               >
+                <GeolocateControl position="top-left" />
+                <FullscreenControl position="top-left" />
+                <NavigationControl position="top-left" />
+                <ScaleControl />
                 {totalLoraItems.map((lora) => (
                   <Marker
                     key={lora.id}
