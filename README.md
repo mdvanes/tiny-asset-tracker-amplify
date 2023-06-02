@@ -86,17 +86,22 @@ Deploy on AWS Amplify:
   - amplify push
   - npm run dev
   - what does this add over directly using mapbox?
+- delete & redeploy the app
+  - delete: `amplify delete` -> THIS ALSO DELETES LOCAL FILES THAT ARE NOT UNDER VERSION CONTROL
+  - redeploy: `amplify push`
 
 # TODO
 
-- Call with curl
-- Fix coord randomization
-- Delete from current account with CLI
-- Remove unused next api routes
-- Use monochrome map layer
+- Use monochrome map layer: https://docs.amplify.aws/lib/geo/maps/q/platform/js/#display-different-map-styles
+- Fix start coord/zoom
 - Split into smaller components and fix types
+- Move cards with table and "add mock data" form to separate route and make map full screen
 - Set up an https endpoint to set as an IoT Things destinations
 - Use REST instead of graphql
 - Clean up graphql
 - Deploy on company account
 - Hosting on AWS
+- Visualize temperature
+- Use Amplify UI button, card, grid
+- Sort by datetime & draw line
+- Fix coord randomization (minlon=4&minlat=51.4&maxlon=6.1&maxlat=53.14)

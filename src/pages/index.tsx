@@ -1,5 +1,5 @@
 import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify, API, Auth, withSSRContext } from "aws-amplify";
+import { Amplify, API, Auth, withSSRContext, Geo } from "aws-amplify";
 import Head from "next/head";
 import awsExports from "@/aws-exports";
 import { createLora } from "@/graphql/mutations";
@@ -102,6 +102,9 @@ const Home: FC<IHomeProps> = ({ loras }) => {
     }
     return 0;
   });
+
+  const availableMaps = Geo.getAvailableMaps();
+  console.log(availableMaps);
 
   // TODO update this value after logging in
   useEffect(() => {
