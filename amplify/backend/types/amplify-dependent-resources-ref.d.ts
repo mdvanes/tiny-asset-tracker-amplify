@@ -31,6 +31,14 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     }
   },
+  "geo": {
+    "mapb290f766": {
+      "Arn": "string",
+      "Name": "string",
+      "Region": "string",
+      "Style": "string"
+    }
+  },
   "storage": {
     "assetdata": {
       "Arn": "string",

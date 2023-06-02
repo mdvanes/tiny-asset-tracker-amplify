@@ -28,6 +28,9 @@
       "api": {
         "lora": {},
         "tinyassettrackerampl": {}
+      },
+      "geo": {
+        "mapb290f766": {}
       }
     }
   }
