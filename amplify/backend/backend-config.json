@@ -59,7 +59,7 @@
     }
   },
   "geo": {
-    "map6f663912": {
+    "assetmap": {
       "accessType": "AuthorizedAndGuestUsers",
       "dependsOn": [
         {
@@ -71,7 +71,7 @@
         }
       ],
       "isDefault": true,
-      "mapStyle": "VectorEsriStreets",
+      "mapStyle": "VectorEsriDarkGrayCanvas",
       "providerPlugin": "awscloudformation",
       "service": "Map"
     }
