@@ -1,36 +1,28 @@
 {
   "dev": {
+    "awscloudformation": {}
+  },
+  "deva": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-tinyassettrackerampl-dev-101326-authRole",
-      "UnauthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-dev-101326-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-dev-101326-authRole",
+      "AuthRoleName": "amplify-tinyassettrackerampl-deva-203104-authRole",
+      "UnauthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-deva-203104-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::552504168047:role/amplify-tinyassettrackerampl-deva-203104-authRole",
       "Region": "eu-west-1",
-      "DeploymentBucketName": "amplify-tinyassettrackerampl-dev-101326-deployment",
-      "UnauthRoleName": "amplify-tinyassettrackerampl-dev-101326-unauthRole",
-      "StackName": "amplify-tinyassettrackerampl-dev-101326",
-      "StackId": "arn:aws:cloudformation:eu-west-1:552504168047:stack/amplify-tinyassettrackerampl-dev-101326/5a523380-011d-11ee-9f18-0252b320ecd7",
-      "AmplifyAppId": "d2cjko25z9679b",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-tinyassettrackerampl-dev-101326-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-tinyassettrackerampl-deva-203104-deployment",
+      "UnauthRoleName": "amplify-tinyassettrackerampl-deva-203104-unauthRole",
+      "StackName": "amplify-tinyassettrackerampl-deva-203104",
+      "StackId": "arn:aws:cloudformation:eu-west-1:552504168047:stack/amplify-tinyassettrackerampl-deva-203104/ccd97240-023c-11ee-a1ce-0ae365b01613",
+      "AmplifyAppId": "d33qqd7dgv3gcz"
     },
     "categories": {
-      "function": {
-        "lora": {
-          "deploymentBucketName": "amplify-tinyassettrackerampl-dev-101326-deployment",
-          "s3Key": "amplify-builds/lora-384543343350596d517a-build.zip"
-        }
-      },
       "auth": {
-        "tinyassettrackerampl": {}
-      },
-      "storage": {
-        "assetdata": {}
+        "tinyassettrackerampl90905931": {}
       },
       "api": {
-        "lora": {},
         "tinyassettrackerampl": {}
       },
       "geo": {
-        "mapb290f766": {}
+        "map6f663912": {}
       }
     }
   }
