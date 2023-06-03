@@ -139,22 +139,20 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                   height: "calc(100vh - 200px)",
                   marginBottom: "1rem",
                 }}
-                // initialViewState={{
-                //   latitude: 37.8,
-                //   longitude: -122.4,
-                //   zoom: 14,
-                // }}
-                initialViewState={
-                  totalLoraItems && totalLoraItems.length > 0
-                    ? {
-                        latitude: parseInt(totalLoraItems[0].lat, 10),
-                        longitude: parseInt(totalLoraItems[0].long, 10),
-                        zoom: 8,
-                      }
-                    : undefined
-                }
-                // mapStyle="mapbox://styles/mapbox/dark-v9"
-                // mapStyle="mapbox://styles/mapbox/dark-v11"
+                initialViewState={{
+                  latitude: 52.029,
+                  longitude: 5.076,
+                  zoom: 5,
+                }}
+                // initialViewState={
+                //   totalLoraItems && totalLoraItems.length > 0
+                //     ? {
+                //         latitude: parseInt(totalLoraItems[0].lat, 10),
+                //         longitude: parseInt(totalLoraItems[0].long, 10),
+                //         zoom: 8,
+                //       }
+                //     : undefined
+                // }
               >
                 <GeolocateControl position="top-left" />
                 <FullscreenControl position="top-left" />
@@ -163,8 +161,9 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                 {totalLoraItems.map((lora) => (
                   <Marker
                     key={lora.id}
-                    latitude={parseInt(lora.lat, 10)}
-                    longitude={parseInt(lora.long, 10)}
+                    // TODO should be number in graphql schema
+                    latitude={parseFloat(lora.lat)}
+                    longitude={parseFloat(lora.long)}
                   />
                 ))}
               </MapView>
@@ -204,73 +203,6 @@ const Home: FC<IHomeProps> = ({ loras }) => {
               </div>
 
               <AddDataForm setOptimisticLora={setOptimisticLora} />
-              {/* <div className={styles.card}>
-                <h3 className={styles.title}>Add mock lora data</h3>
-
-                <form
-                  onSubmit={async (ev) => {
-                    const result = await handleCreatePost(ev);
-                    if (result?.id) {
-                      setOptimisticLora((opt) => [...opt, result]);
-                    }
-                  }}
-                >
-                  <div className={styles.fieldset}>
-                    <legend>Time</legend>
-                    <input
-                      defaultValue={`${new Date().toLocaleTimeString()}`}
-                      name="time"
-                    />
-                  </div>
-
-                  <div className={styles.fieldset}>
-                    <legend>Lat</legend>
-                    <input
-                      // defaultValue="I built an Amplify project with Next.js!"
-                      name="lat"
-                    />
-                  </div>
-
-                  <div className={styles.fieldset}>
-                    <legend>Long</legend>
-                    <input name="long" />
-                  </div>
-
-                  <div className={styles.fieldset}>
-                    <legend>Temperature</legend>
-                    <input name="temp" />
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      (
-                        document.querySelector(
-                          "[name=time]"
-                        )! as HTMLInputElement
-                      ).value = `${new Date().toLocaleTimeString()}`;
-                      (
-                        document.querySelector(
-                          "[name=lat]"
-                        )! as HTMLInputElement
-                      ).value = `${54 + Math.random()}`;
-                      (
-                        document.querySelector(
-                          "[name=long]"
-                        )! as HTMLInputElement
-                      ).value = `${8 + Math.random()}`;
-                      (
-                        document.querySelector(
-                          "[name=temp]"
-                        )! as HTMLInputElement
-                      ).value = `${Math.floor(Math.random() * 100)}`;
-                    }}
-                  >
-                    r
-                  </button>
-                  <button>Send Lora Status update</button>
-                </form>
-              </div> */}
             </div>
           </div>
 

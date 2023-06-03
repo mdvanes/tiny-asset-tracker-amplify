@@ -3,8 +3,8 @@ import { ILora } from "@/types";
 import "@aws-amplify/ui-react-geo/styles.css";
 import { API } from "aws-amplify";
 import { FC } from "react";
+import { Observable } from "zen-observable-ts";
 import styles from "./AddDataForm.module.css";
-import { GraphQLResult } from "@aws-amplify/api";
 
 async function handleCreatePost(
   event: React.FormEvent<HTMLFormElement>
@@ -14,7 +14,7 @@ async function handleCreatePost(
   const form = new FormData(event.target as HTMLFormElement);
 
   try {
-    const { data } = (await API.graphql({
+    const response = await API.graphql<{ createLora: ILora }>({
       authMode: "AMAZON_COGNITO_USER_POOLS",
       query: createLora,
       variables: {
@@ -25,9 +25,13 @@ async function handleCreatePost(
           temp: form.get("temp"),
         },
       },
-    })) as GraphQLResult<{ createLora: ILora }>;
+    });
 
-    return data?.createLora;
+    if (response instanceof Observable<object>) {
+      return;
+    }
+
+    return response.data?.createLora;
     // window.location.href = `/posts/${data.createPost.id}`;
   } catch ({ errors }: any) {
     console.log(errors);
@@ -39,6 +43,9 @@ async function handleCreatePost(
 interface IAddDataForm {
   setOptimisticLora: (fn: (prev: ILora[]) => ILora[]) => void;
 }
+
+const getTimestamp = (): string =>
+  new Date().toISOString().slice(0, 19).replace(/[-:]/g, "").replace("T", "_");
 
 const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
   return (
@@ -55,10 +62,7 @@ const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
       >
         <div className={styles.fieldset}>
           <legend>Time</legend>
-          <input
-            defaultValue={`${new Date().toLocaleTimeString()}`}
-            name="time"
-          />
+          <input defaultValue={`${getTimestamp()}`} name="time" />
         </div>
 
         <div className={styles.fieldset}>
@@ -84,13 +88,13 @@ const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
           onClick={() => {
             (
               document.querySelector("[name=time]")! as HTMLInputElement
-            ).value = `${new Date().toLocaleTimeString()}`;
+            ).value = `${getTimestamp()}`;
             (
               document.querySelector("[name=lat]")! as HTMLInputElement
-            ).value = `${54 + Math.random()}`;
+            ).value = `${50 + Math.random() * 4}`;
             (
               document.querySelector("[name=long]")! as HTMLInputElement
-            ).value = `${8 + Math.random()}`;
+            ).value = `${4 + Math.random() * 2}`;
             (
               document.querySelector("[name=temp]")! as HTMLInputElement
             ).value = `${Math.floor(Math.random() * 100)}`;
