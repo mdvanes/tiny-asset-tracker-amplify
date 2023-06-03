@@ -1,21 +1,21 @@
-import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify, API, Auth, withSSRContext, Geo } from "aws-amplify";
-import Head from "next/head";
 import awsExports from "@/aws-exports";
 import { createLora } from "@/graphql/mutations";
 import { listLoras } from "@/graphql/queries";
-import styles from "../styles/Home.module.css";
-import { FC, useEffect, useState } from "react";
+import { Authenticator } from "@aws-amplify/ui-react";
 import { MapView } from "@aws-amplify/ui-react-geo";
-import Map, {
-  Marker,
-  Popup,
-  NavigationControl,
-  FullscreenControl,
-  ScaleControl,
-  GeolocateControl,
-} from "react-map-gl";
 import "@aws-amplify/ui-react-geo/styles.css";
+import { API, Amplify, Auth, withSSRContext } from "aws-amplify";
+import Head from "next/head";
+import { FC, useEffect, useState } from "react";
+import {
+  FullscreenControl,
+  GeolocateControl,
+  Marker,
+  NavigationControl,
+  ScaleControl,
+} from "react-map-gl";
+import styles from "../styles/Home.module.css";
+import AddDataForm from "@/components/AddDataForm/AddDataForm";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -102,9 +102,6 @@ const Home: FC<IHomeProps> = ({ loras }) => {
     }
     return 0;
   });
-
-  const availableMaps = Geo.getAvailableMaps();
-  console.log(availableMaps);
 
   // TODO update this value after logging in
   useEffect(() => {
@@ -206,7 +203,8 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                 </table>
               </div>
 
-              <div className={styles.card}>
+              <AddDataForm setOptimisticLora={setOptimisticLora} />
+              {/* <div className={styles.card}>
                 <h3 className={styles.title}>Add mock lora data</h3>
 
                 <form
@@ -272,7 +270,7 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                   </button>
                   <button>Send Lora Status update</button>
                 </form>
-              </div>
+              </div> */}
             </div>
           </div>
 
