@@ -142,7 +142,7 @@ const Home: FC<IHomeProps> = ({ loras }) => {
                 initialViewState={{
                   latitude: 52.029,
                   longitude: 5.076,
-                  zoom: 5,
+                  zoom: 7,
                 }}
                 // initialViewState={
                 //   totalLoraItems && totalLoraItems.length > 0

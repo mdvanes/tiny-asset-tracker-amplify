@@ -91,7 +91,7 @@ const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
             ).value = `${getTimestamp()}`;
             (
               document.querySelector("[name=lat]")! as HTMLInputElement
-            ).value = `${50 + Math.random() * 4}`;
+            ).value = `${51 + Math.random() * 2}`;
             (
               document.querySelector("[name=long]")! as HTMLInputElement
             ).value = `${4 + Math.random() * 2}`;

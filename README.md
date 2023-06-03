@@ -81,8 +81,12 @@ Deploy on AWS Amplify:
   - https://ui.docs.amplify.aws/react/connected-components/geo#quick-start
   - npm install @aws-amplify/ui-react-geo
   - Create map resources by following the Amplify Geo documentation.
-  - amplify add geo
+  - amplify add geo (Use monochrome map layer: https://docs.amplify.aws/lib/geo/maps/q/platform/js/#display-different-map-styles)
     - visualize geospatial data
+    - name: assetmap
+    - authorized & guest users
+    - advanced settings: yes
+    - DarkGrayCanvas by Esri
   - amplify push
   - npm run dev
   - what does this add over directly using mapbox?
@@ -125,7 +129,6 @@ Deploy on AWS Amplify:
 
 # TODO
 
-- Use monochrome map layer: https://docs.amplify.aws/lib/geo/maps/q/platform/js/#display-different-map-styles
 - Split into smaller components and fix types
 - Use Amplify UI button, card, grid
 - Fix start coord/zoom
@@ -137,4 +140,3 @@ Deploy on AWS Amplify:
 - Hosting on AWS
 - Visualize temperature
 - Sort by datetime & draw line
-- Fix coord randomization (minlon=4&minlat=51.4&maxlon=6.1&maxlat=53.14)
