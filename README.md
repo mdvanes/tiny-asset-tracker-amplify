@@ -89,19 +89,52 @@ Deploy on AWS Amplify:
 - delete & redeploy the app
   - delete: `amplify delete` -> THIS ALSO DELETES LOCAL FILES THAT ARE NOT UNDER VERSION CONTROL
   - redeploy: `amplify push`
+- restoring the app
+  - the first delete & redeploy attempt deleted local files so I can't deploy anymore
+  - this issue: https://stackoverflow.com/questions/55181661/aws-amplify-how-to-recreate-manually-deleted-cloudformation-stacks
+  - rename the app dir
+  - npx create-next-app@latest tiny-asset-tracker-amplify --no-app
+  - cd tiny-asset-tracker-amplify
+  - amplify init
+    - use default settings
+    - this starts deploying the dev environment
+  - amplify add api
+    - Graphql
+    - single object
+    - edit schema
+  - amplify add geo
+    - visualize geospatial data
+  - amplify push
+  - copy the amplify dir and the src/aws-exports file from the new to the old app dir
+  - in the old app dir: amplify push
+  - npm run dev
+  - https://aws.amazon.com/blogs/mobile/restoring-aws-amplify-project-after-deleting-it-from-the-cloud/
+- delete & redeploy the app, attempt 2
+  - the first attempt deleted local files so I can't deploy anymore
+  - delete app via AWS Amplify web console: `amplify console` / 'AWS Console' / delete app
+  - redeploy:
+  - remove "dev" entry from `amplify/local-aws-info.json` (and more?)
+  - `rm amplify/team-provider-info.json`
+  - `amplify init`
+    - do you want to use an existing environment? No
+    - name for environment: devz (a NEW name! fix this by deleting some other config file?)
+    - use `AWS profile`
+  - `amplify push`
+  - `npm run dev`
+  - go to http://localhost:3000/ and recreate user account
 
 # TODO
 
 - Use monochrome map layer: https://docs.amplify.aws/lib/geo/maps/q/platform/js/#display-different-map-styles
-- Fix start coord/zoom
 - Split into smaller components and fix types
+- Use Amplify UI button, card, grid
+- Fix start coord/zoom
 - Move cards with table and "add mock data" form to separate route and make map full screen
 - Set up an https endpoint to set as an IoT Things destinations
 - Use REST instead of graphql
 - Clean up graphql
-- Deploy on company account
+- Deploy on company account (only delete via web console, update amplify/.config/local-env-info / local-aws-info & push)
 - Hosting on AWS
 - Visualize temperature
-- Use Amplify UI button, card, grid
 - Sort by datetime & draw line
 - Fix coord randomization (minlon=4&minlat=51.4&maxlon=6.1&maxlat=53.14)
