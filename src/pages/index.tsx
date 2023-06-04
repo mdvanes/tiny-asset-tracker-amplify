@@ -11,6 +11,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FC, useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
+import LoraTable from "@/components/LoraTable/LoraTable";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -88,45 +89,10 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
         <Authenticator>
           <div className={styles.grid}>
             <LoraMap loras={totalLoraItems} />
-            {/* <div>
-              <MapView
-                style={{
-                  width: "calc(60vw - 3rem)",
-                  height: "calc(100vh - 200px)",
-                  marginBottom: "1rem",
-                }}
-                initialViewState={{
-                  latitude: 52.029,
-                  longitude: 5.076,
-                  zoom: 7,
-                }}
-                // initialViewState={
-                //   totalLoraItems && totalLoraItems.length > 0
-                //     ? {
-                //         latitude: parseInt(totalLoraItems[0].lat, 10),
-                //         longitude: parseInt(totalLoraItems[0].long, 10),
-                //         zoom: 8,
-                //       }
-                //     : undefined
-                // }
-              >
-                <GeolocateControl position="top-left" />
-                <FullscreenControl position="top-left" />
-                <NavigationControl position="top-left" />
-                <ScaleControl />
-                {totalLoraItems.map((lora) => (
-                  <Marker
-                    key={lora.id}
-                    // TODO should be number in graphql schema
-                    latitude={parseFloat(lora.lat)}
-                    longitude={parseFloat(lora.long)}
-                  />
-                ))}
-              </MapView>
-            </div> */}
 
             <div>
-              <div className={styles.card}>
+              <LoraTable loras={totalLoraItems} />
+              {/* <div className={styles.card}>
                 <p className={styles.description}>
                   <code className={styles.code}>{totalLoraItems.length} </code>
                   lora messages
@@ -148,15 +114,15 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
                         <td>{lora.lat}</td>
                         <td>{lora.long}</td>
                         <td>{lora.temp}</td>
-                        {/* <a href={`/posts/${lora.id}`}>
+                        {/ * <a href={`/posts/${lora.id}`}>
                     <h3></h3>
                     <p>{lora.lat}</p>
-                  </a> */}
+                  </a> * /}
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </div> */}
 
               <AddDataForm setOptimisticLora={setOptimisticLora} />
             </div>
