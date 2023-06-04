@@ -33,10 +33,13 @@ async function handleCreatePost(
 
     return response.data?.createLora;
     // window.location.href = `/posts/${data.createPost.id}`;
-  } catch ({ errors }: any) {
-    console.log(errors);
-    console.error(...errors);
-    throw new Error(errors[0].message);
+  } catch (err: unknown) {
+    const typedErr = err as { errors?: { message?: string }[] };
+    if (typedErr.errors?.[0].message) {
+      console.error(...typedErr.errors);
+      throw new Error(typedErr.errors[0].message);
+    }
+    console.log(typedErr);
   }
 }
 

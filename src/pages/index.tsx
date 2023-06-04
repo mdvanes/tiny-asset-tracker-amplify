@@ -1,10 +1,13 @@
 import awsExports from "@/aws-exports";
-import { createLora } from "@/graphql/mutations";
+import AddDataForm from "@/components/AddDataForm/AddDataForm";
 import { listLoras } from "@/graphql/queries";
+import { ILora } from "@/types";
+import { GraphQLResult } from "@aws-amplify/api";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { MapView } from "@aws-amplify/ui-react-geo";
 import "@aws-amplify/ui-react-geo/styles.css";
-import { API, Amplify, Auth, withSSRContext } from "aws-amplify";
+import { Amplify, Auth, withSSRContext } from "aws-amplify";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FC, useEffect, useState } from "react";
 import {
@@ -15,80 +18,39 @@ import {
   ScaleControl,
 } from "react-map-gl";
 import styles from "../styles/Home.module.css";
-import AddDataForm from "@/components/AddDataForm/AddDataForm";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
-export async function getServerSideProps({ req }: any) {
+interface IHomeProps {
+  loras?: ILora[];
+}
+
+export const getServerSideProps: GetServerSideProps<IHomeProps> = async (
+  context
+) => {
+  const { req } = context;
   const SSR = withSSRContext({ req });
 
   try {
-    // const response = await SSR.API.get("lora", "/lora");
-    // console.log(response.data);
-    // API.get('')
-    // SSR.API.
-    const response = await SSR.API.graphql({
-      query: listLoras,
-      authMode: "API_KEY",
-    });
+    const response: GraphQLResult<{ listLoras: { items: ILora[] } }> =
+      await SSR.API.graphql({
+        query: listLoras,
+        authMode: "API_KEY",
+      });
     return {
       props: {
-        loras: response.data.listLoras.items,
+        loras: response.data?.listLoras.items,
       },
     };
   } catch (err) {
-    console.log("err!");
-    console.log(err);
+    console.error("err!", err);
     return {
       props: {},
     };
   }
-}
+};
 
-// TODO split into small components
-
-async function handleCreatePost(event: any) {
-  event.preventDefault();
-
-  const form = new FormData(event.target);
-
-  try {
-    const { data }: any = await API.graphql({
-      authMode: "AMAZON_COGNITO_USER_POOLS",
-      query: createLora,
-      variables: {
-        input: {
-          time: form.get("time"),
-          lat: form.get("lat"),
-          long: form.get("long"),
-          temp: form.get("temp"),
-        },
-      },
-    });
-
-    // console.log(data.createLora);
-    return data.createLora;
-    // window.location.href = `/posts/${data.createPost.id}`;
-  } catch ({ errors }: any) {
-    console.log(errors);
-    console.error(...errors);
-    throw new Error(errors[0].message);
-  }
-}
-
-interface ILora {
-  id: string;
-  time: string;
-  lat: string;
-  long: string;
-  temp: string;
-}
-
-interface IHomeProps {
-  loras: ILora[];
-}
-
-const Home: FC<IHomeProps> = ({ loras }) => {
+const Home: FC<IHomeProps> = ({ loras = [] }) => {
   const [optimisticLora, setOptimisticLora] = useState<ILora[]>([]);
   const [username, setUsername] = useState<string | undefined>();
 
@@ -103,7 +65,7 @@ const Home: FC<IHomeProps> = ({ loras }) => {
     return 0;
   });
 
-  // TODO update this value after logging in
+  // TODO update this value after logging in, and show username at the top of the app
   useEffect(() => {
     const run = async () => {
       const x = await Auth.currentAuthenticatedUser();
