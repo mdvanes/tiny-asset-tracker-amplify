@@ -8,6 +8,8 @@ import {
   Marker,
   NavigationControl,
   ScaleControl,
+  Layer,
+  Source,
 } from "react-map-gl";
 
 interface ILoraMapProps {
@@ -15,6 +17,18 @@ interface ILoraMapProps {
 }
 
 const LoraMap: FC<ILoraMapProps> = ({ loras = [] }) => {
+  const dataOne: GeoJSON.Feature<GeoJSON.Geometry> = {
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "LineString",
+      coordinates: loras.map((lora) => [
+        parseFloat(lora.long),
+        parseFloat(lora.lat),
+      ]),
+    },
+  };
+
   return (
     <div>
       <MapView
@@ -50,6 +64,21 @@ const LoraMap: FC<ILoraMapProps> = ({ loras = [] }) => {
             longitude={parseFloat(lora.long)}
           />
         ))}
+        <Source id="polylineLayer" type="geojson" data={dataOne}>
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="my-data"
+            layout={{
+              "line-join": "round",
+              "line-cap": "round",
+            }}
+            paint={{
+              "line-color": "rgba(3, 170, 238, 0.5)",
+              "line-width": 5,
+            }}
+          />
+        </Source>
       </MapView>
     </div>
   );
