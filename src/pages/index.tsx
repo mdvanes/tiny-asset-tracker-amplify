@@ -1,21 +1,20 @@
 import awsExports from "@/aws-exports";
 import AddDataForm from "@/components/AddDataForm/AddDataForm";
+import { AppBar } from "@/components/AppBar/AppBar";
 import LoraMap from "@/components/LoraMap/LoraMap";
+import LoraTable from "@/components/LoraTable/LoraTable";
+import { theme } from "@/components/lora-theme";
 import { listLoras } from "@/graphql/queries";
 import { ILora } from "@/types";
 import { GraphQLResult } from "@aws-amplify/api";
-import { Authenticator, Theme, ThemeProvider } from "@aws-amplify/ui-react";
-import { Amplify, Auth, withSSRContext } from "aws-amplify";
+import { Authenticator, ThemeProvider } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react-geo/styles.css";
+import "@aws-amplify/ui-react/styles.css";
+import { Amplify, withSSRContext } from "aws-amplify";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styles from "../styles/Home.module.css";
-import LoraTable from "@/components/LoraTable/LoraTable";
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import "@aws-amplify/ui-react-geo/styles.css";
-import { theme } from "@/components/lora-theme";
-import { AppBar } from "@/components/AppBar/AppBar";
 
 Amplify.configure({ ...awsExports, ssr: true });
 
@@ -50,7 +49,6 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async (
 
 const Home: FC<IHomeProps> = ({ loras = [] }) => {
   const [optimisticLora, setOptimisticLora] = useState<ILora[]>([]);
-  const [username, setUsername] = useState<string | undefined>();
 
   const totalLoraItems = [...loras, ...optimisticLora];
   totalLoraItems.sort(({ time }, { time: otherTime }) => {
@@ -64,14 +62,6 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
   });
 
   // TODO update this value after logging in, and show username at the top of the app
-  useEffect(() => {
-    const run = async () => {
-      const x = await Auth.currentAuthenticatedUser();
-
-      setUsername(x.username);
-    };
-    run();
-  }, []);
 
   return (
     <ThemeProvider colorMode="dark" theme={theme}>
@@ -84,8 +74,6 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
         <AppBar />
 
         <main className={styles.main}>
-          {/* <h1 className={styles.title}>tiny-asset-tracker-amplify</h1> */}
-
           {/* {!username && (
           <p className={styles.description}>
             <code className={styles.code}>{totalLoraItems.length} </code>
@@ -103,15 +91,6 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
                 <AddDataForm setOptimisticLora={setOptimisticLora} />
               </div>
             </div>
-
-            {/* TODO use import { Button } from '@aws-amplify/ui-react'; */}
-            <Button
-              type="button"
-              variation="warning"
-              onClick={() => Auth.signOut()}
-            >
-              Sign out
-            </Button>
           </Authenticator>
         </main>
       </div>
