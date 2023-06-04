@@ -1,22 +1,15 @@
 import awsExports from "@/aws-exports";
 import AddDataForm from "@/components/AddDataForm/AddDataForm";
+import LoraMap from "@/components/LoraMap/LoraMap";
 import { listLoras } from "@/graphql/queries";
 import { ILora } from "@/types";
 import { GraphQLResult } from "@aws-amplify/api";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { MapView } from "@aws-amplify/ui-react-geo";
 import "@aws-amplify/ui-react-geo/styles.css";
 import { Amplify, Auth, withSSRContext } from "aws-amplify";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FC, useEffect, useState } from "react";
-import {
-  FullscreenControl,
-  GeolocateControl,
-  Marker,
-  NavigationControl,
-  ScaleControl,
-} from "react-map-gl";
 import styles from "../styles/Home.module.css";
 
 Amplify.configure({ ...awsExports, ssr: true });
@@ -94,7 +87,8 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
 
         <Authenticator>
           <div className={styles.grid}>
-            <div>
+            <LoraMap loras={totalLoraItems} />
+            {/* <div>
               <MapView
                 style={{
                   width: "calc(60vw - 3rem)",
@@ -129,7 +123,7 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
                   />
                 ))}
               </MapView>
-            </div>
+            </div> */}
 
             <div>
               <div className={styles.card}>
