@@ -24,7 +24,6 @@
   flex: 1;
 }
 
-.card input,
-.card textarea {
+.card .custom-input {
   color: black;
 }

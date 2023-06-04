@@ -1,10 +1,17 @@
 import { createLora } from "@/graphql/mutations";
 import { ILora } from "@/types";
-import "@aws-amplify/ui-react-geo/styles.css";
+import {
+  Button,
+  Card,
+  Flex,
+  Heading,
+  TextField,
+  View,
+  useTheme,
+} from "@aws-amplify/ui-react";
 import { API } from "aws-amplify";
 import { FC } from "react";
 import { Observable } from "zen-observable-ts";
-import styles from "./AddDataForm.module.css";
 
 async function handleCreatePost(
   event: React.FormEvent<HTMLFormElement>
@@ -51,63 +58,64 @@ const getTimestamp = (): string =>
   new Date().toISOString().slice(0, 19).replace(/[-:]/g, "").replace("T", "_");
 
 const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
+  const { tokens } = useTheme();
+
   return (
-    <div className={styles.card}>
-      <h3 className={styles.title}>Add mock lora data</h3>
+    <View paddingBottom={tokens.space.medium}>
+      <Card variation="outlined" backgroundColor="#304050">
+        <Heading level={4}>Add mock lora data</Heading>
 
-      <form
-        onSubmit={async (ev) => {
-          const result = await handleCreatePost(ev);
-          if (result?.id) {
-            setOptimisticLora((opt) => [...opt, result]);
-          }
-        }}
-      >
-        <div className={styles.fieldset}>
-          <legend>Time</legend>
-          <input defaultValue={`${getTimestamp()}`} name="time" />
-        </div>
-
-        <div className={styles.fieldset}>
-          <legend>Lat</legend>
-          <input
-            // defaultValue="I built an Amplify project with Next.js!"
-            name="lat"
-          />
-        </div>
-
-        <div className={styles.fieldset}>
-          <legend>Long</legend>
-          <input name="long" />
-        </div>
-
-        <div className={styles.fieldset}>
-          <legend>Temperature</legend>
-          <input name="temp" />
-        </div>
-
-        <button
-          type="button"
-          onClick={() => {
-            (
-              document.querySelector("[name=time]")! as HTMLInputElement
-            ).value = `${getTimestamp()}`;
-            (
-              document.querySelector("[name=lat]")! as HTMLInputElement
-            ).value = `${51 + Math.random() * 2}`;
-            (
-              document.querySelector("[name=long]")! as HTMLInputElement
-            ).value = `${4 + Math.random() * 2}`;
-            (
-              document.querySelector("[name=temp]")! as HTMLInputElement
-            ).value = `${Math.floor(Math.random() * 100)}`;
+        <form
+          onSubmit={async (ev) => {
+            const result = await handleCreatePost(ev);
+            if (result?.id) {
+              setOptimisticLora((opt) => [...opt, result]);
+            }
           }}
         >
-          r
-        </button>
-        <button>Send Lora Status update</button>
-      </form>
-    </div>
+          <Flex direction="column" gap="1rem">
+            <TextField
+              label="Time"
+              defaultValue={`${getTimestamp()}`}
+              name="time"
+            />
+
+            <TextField label="Latitude" name="lat" />
+
+            <TextField label="Longitude" name="long" />
+
+            <TextField label="Temperature" name="temp" />
+          </Flex>
+
+          <Flex direction="row" gap="1.5rem" marginTop="1rem">
+            <Button
+              type="button"
+              variation="link"
+              className="button"
+              onClick={() => {
+                (
+                  document.querySelector("[name=time]")! as HTMLInputElement
+                ).value = `${getTimestamp()}`;
+                (
+                  document.querySelector("[name=lat]")! as HTMLInputElement
+                ).value = `${51 + Math.random() * 2}`;
+                (
+                  document.querySelector("[name=long]")! as HTMLInputElement
+                ).value = `${4 + Math.random() * 2}`;
+                (
+                  document.querySelector("[name=temp]")! as HTMLInputElement
+                ).value = `${Math.floor(Math.random() * 100)}`;
+              }}
+            >
+              randomize
+            </Button>
+            <Button type="submit" variation="primary">
+              Send Lora Status update
+            </Button>
+          </Flex>
+        </form>
+      </Card>
+    </View>
   );
 };
 

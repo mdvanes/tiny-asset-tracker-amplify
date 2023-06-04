@@ -8,6 +8,16 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+/* Should work, but doesn't */
+/* :root,
+[data-amplify-theme] {
+  --amplify-colors-font-primary: #333;
+  /* you can also use references: * /
+  --amplify-colors-font-secondary: red;
+  /* var(--amplify-colors-neutral-60); * /
+  --amplify-components-field-label-color: purple;
+} */
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
