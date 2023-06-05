@@ -62,7 +62,7 @@ const AddDataForm: FC<IAddDataForm> = ({ setOptimisticLora }) => {
 
   return (
     <View paddingBottom={tokens.space.medium}>
-      <Card variation="outlined" backgroundColor="#304050">
+      <Card variation="outlined">
         <Heading level={4}>Add mock lora data</Heading>
 
         <form
