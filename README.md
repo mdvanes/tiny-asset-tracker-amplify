@@ -129,9 +129,6 @@ Deploy on AWS Amplify:
 
 # TODO
 
-- Split into smaller components and fix types
-- Use Amplify UI button, card, grid
-- Fix start coord/zoom
 - Move cards with table and "add mock data" form to separate route and make map full screen
 - Set up an https endpoint to set as an IoT Things destinations
 - Use REST instead of graphql
@@ -139,4 +136,3 @@ Deploy on AWS Amplify:
 - Deploy on company account (only delete via web console, update amplify/.config/local-env-info / local-aws-info & push)
 - Hosting on AWS
 - Visualize temperature
-- Sort by datetime & draw line

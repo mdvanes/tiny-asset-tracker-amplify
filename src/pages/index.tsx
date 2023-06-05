@@ -7,7 +7,7 @@ import { theme } from "@/components/lora-theme";
 import { listLoras } from "@/graphql/queries";
 import { ILora } from "@/types";
 import { GraphQLResult } from "@aws-amplify/api";
-import { Authenticator, ThemeProvider } from "@aws-amplify/ui-react";
+import { Authenticator, Flex, ThemeProvider } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react-geo/styles.css";
 import "@aws-amplify/ui-react/styles.css";
 import { Amplify, withSSRContext } from "aws-amplify";
@@ -61,7 +61,6 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
     return 0;
   });
 
-  // TODO update this value after logging in, and show username at the top of the app
 
   return (
     <ThemeProvider colorMode="dark" theme={theme}>
@@ -82,7 +81,7 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
         )} */}
 
           <Authenticator>
-            <div className={styles.grid}>
+            <Flex justifyContent="space-between">
               <LoraMap loras={totalLoraItems} />
 
               <div>
@@ -90,7 +89,7 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
 
                 <AddDataForm setOptimisticLora={setOptimisticLora} />
               </div>
-            </div>
+            </Flex>
           </Authenticator>
         </main>
       </div>

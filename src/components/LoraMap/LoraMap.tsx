@@ -30,10 +30,10 @@ const LoraMap: FC<ILoraMapProps> = ({ loras = [] }) => {
   };
 
   return (
-    <div>
+    <div style={{ flex: 1 }}>
       <MapView
         style={{
-          width: "calc(60vw - 3rem)",
+          width: "100%",
           height: "calc(100vh - 200px)",
           marginBottom: "1rem",
         }}

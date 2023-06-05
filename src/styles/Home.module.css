@@ -4,23 +4,14 @@
   margin-bottom: 1rem;
 }
 
-.container {
-  padding: 1rem;
-}
-
 .container maplibregl-canvas-container {
   height: 100%;
 }
 
-.grid {
-  display: flex;
-  gap: 1rem;
+.container .button {
+  margin-right: 1rem;
 }
 
-.container .button {
-  /* background-color: white;
-  border-radius: 0.2rem;
-  color: black;
-  padding: 0.5rem; */
-  margin-right: 1rem;
+.main {
+  padding: 1rem;
 }
