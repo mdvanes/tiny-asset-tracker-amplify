@@ -1,19 +1,16 @@
-import { Button, Flex, Heading, Text } from "@aws-amplify/ui-react";
-import { Auth } from "aws-amplify";
-import { FC, useEffect, useState } from "react";
+import {
+  Button,
+  Flex,
+  Heading,
+  Text,
+  useAuthenticator,
+} from "@aws-amplify/ui-react";
+import { FC } from "react";
 import styles from "./AppBar.module.css";
 
 export const AppBar: FC = () => {
-  const [username, setUsername] = useState<string | undefined>();
-
-  useEffect(() => {
-    const run = async () => {
-      const currentAuthenticatedUser = await Auth.currentAuthenticatedUser();
-
-      setUsername(currentAuthenticatedUser.username);
-    };
-    run();
-  }, []);
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  const username = user?.username;
 
   return (
     <Heading className={styles.appbar} level={3}>
@@ -25,7 +22,7 @@ export const AppBar: FC = () => {
             <Button
               type="button"
               variation="warning"
-              onClick={() => Auth.signOut()}
+              onClick={async () => signOut()}
             >
               Sign out
             </Button>

@@ -47,6 +47,16 @@ export const getServerSideProps: GetServerSideProps<IHomeProps> = async (
   }
 };
 
+const WithProviders: FC<IHomeProps> = (props) => {
+  return (
+    <ThemeProvider colorMode="dark" theme={theme}>
+      <Authenticator.Provider>
+        <Home {...props} />
+      </Authenticator.Provider>
+    </ThemeProvider>
+  );
+};
+
 const Home: FC<IHomeProps> = ({ loras = [] }) => {
   const [optimisticLora, setOptimisticLora] = useState<ILora[]>([]);
 
@@ -61,53 +71,37 @@ const Home: FC<IHomeProps> = ({ loras = [] }) => {
     return 0;
   });
 
-
   return (
-    <ThemeProvider colorMode="dark" theme={theme}>
-      <div className={styles.container}>
-        <Head>
-          <title>tiny-asset-tracker-amplify</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+    <div className={styles.container}>
+      <Head>
+        <title>tiny-asset-tracker-amplify</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-        <AppBar />
+      <AppBar />
 
-        <main className={styles.main}>
-          {/* {!username && (
+      <main className={styles.main}>
+        {/* {!username && (
           <p className={styles.description}>
             <code className={styles.code}>{totalLoraItems.length} </code>
             lora messages
           </p>
         )} */}
 
-          <Authenticator>
-            <Flex justifyContent="space-between">
-              <LoraMap loras={totalLoraItems} />
+        <Authenticator>
+          <Flex justifyContent="space-between">
+            <LoraMap loras={totalLoraItems} />
 
-              <div>
-                <LoraTable loras={totalLoraItems} />
+            <div>
+              <LoraTable loras={totalLoraItems} />
 
-                <AddDataForm setOptimisticLora={setOptimisticLora} />
-              </div>
-            </Flex>
-          </Authenticator>
-        </main>
-      </div>
-    </ThemeProvider>
+              <AddDataForm setOptimisticLora={setOptimisticLora} />
+            </div>
+          </Flex>
+        </Authenticator>
+      </main>
+    </div>
   );
 };
 
-export default Home;
-
-// import { Amplify } from 'aws-amplify';
-// import { MapView } from '@aws-amplify/ui-react-geo';
-
-// import '@aws-amplify/ui-react-geo/styles.css';
-
-// import awsExports from '@/aws-exports';
-
-// Amplify.configure(awsExports);
-
-// export default function BasicMap() {
-//   return <MapView />;
-// }
+export default WithProviders;
