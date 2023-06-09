@@ -17,7 +17,8 @@ function put () {
     TIME=$(date +"%Y%m%d%_H%M%S")
 
     # APPSYNC_API_KEY works for query but not for mutation, not even in AppSync GraphQL web console! It gives "Unauthorized"
-    curl -X POST "Content-Type:application/graphql" -H "x-api-key:$APPSYNC_API_KEY"\
+    #  -H "x-api-key:$APPSYNC_API_KEY"
+    curl -X POST "Content-Type:application/graphql" -H "authorization: GET_FROM_BROWSER" \
         -d "{\"query\": \"mutation CreateLora(\$input: CreateLoraInput\\u0021) { createLora(input: \$input) { id time lat long temp createdAt updatedAt owner } }\", \"variables\": {\"input\": {\"time\":$TIME, \"lat\":$1, \"long\":$2, \"temp\":$4}}}" \
         "$APPSYNC_URL"
 }
